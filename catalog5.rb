@@ -1,5 +1,5 @@
 require 'csv'
-
+require 'pry'
 class Element
 def initialize(name, symbol, num, weight, state, type)
       @name = name
@@ -24,6 +24,11 @@ def to_s
                  str += @type.to_s.ljust(20)
        str
 
+end
+
+def to_array
+   
+      [@name, @symbol, @num, @weight, @state, @type]
 end
 
 end    #end of class Element
@@ -61,26 +66,25 @@ class Catalog
  end
 
 
- def get_sorted_elements(category)         # This method returns all elements sorted by the alphabetic order or by atomic_weight
-      str = ""
-      element=CSV.parse(File.read("elements.txt"))
-      if category == 0
-          sorted_array = element.sort_by{|arr| arr[category].to_s}
-      elsif (category == 2)
-          sorted_array = element.sort_by{|arr| arr[category].to_i}
-      end
-      for row in 0..sorted_array.length-1 do
-          for column in 0..5 do
-              str += sorted_array[row][column].to_s.ljust(20)
-          end
-          str += "\n"
-       end
-       str += "\n"
-       str
- end
- def print_sorted_elements(category)
-     print get_sorted_elements(category)
- end
+  def print_sorted_elements(category)         # This method sorts all elements by different categories
+     if category == 1
+       sorted_array = @elements.sort_by{ |element| element.name.to_s }
+     elsif category == 2
+       sorted_array = @elements.sort_by{ |element| element.symbol.to_s }
+     elsif category == 3 
+       sorted_array = @elements.sort_by{ |element| element.num.to_i }
+     elsif category == 4 
+       sorted_array = @elements.sort_by{ |element| element.weight.to_f }
+     elsif category == 5 
+       sorted_array = @elements.sort_by{ |element| element.state.to_s }
+     elsif category == 6 
+       sorted_array = @elements.sort_by{ |element| element.type.to_s }
+     end
+       sorted_array.each do |elem|
+              puts elem.to_s
+        end
+  end
+
  def print_element_by_name(elem)
      print_titles
      @elements.each do |element|
@@ -127,26 +131,32 @@ class Catalog
       end
  end
 
- def add_elem (name, symbol, atomic_num, atomic_weight, state, type)
+ def add_elem (name, symbol, num, weight, state, type)
       CSV.open('elements.txt', 'a') do |csv|
-           csv << [name, symbol, atomic_num, atomic_weight, state, type]
+           csv << [name, symbol, num, weight, state, type]
       end
  end
- def update_elem(original, change_name, change_symbol, change_num, change_weight, change_state, change_type)
-       element = CSV.read('elements.txt')
-       change = element.find {|item| item[0] =~ /#{original}/}
-       change[0] = change_name
-       change[1] = change_symbol
-       change[2] = change_num
-       change[3] = change_weight
-       change[4] = change_state
-       change[5] = change_type
 
-       CSV.open('elements.txt', 'w') do |csv|
-          element.each do |item|
-             csv << item
-          end
-       end
+ def update_elem(original, changed_name, changed_symbol, changed_num, changed_weight, changed_state, changed_type)
+       @elements.each do |element|
+           if original == element.name
+              element.name = changed_name
+              element.symbol = changed_symbol
+              element.num = changed_num
+              element.weight = changed_weight
+              element.state = changed_state
+              element.type = changed_type
+            end
+        end
+
+      #  binding.pry
+        CSV.open('elements.txt', 'w') do |csv|
+
+     #   binding.pry
+           @elements.each do |element|
+                  csv << element.to_array 
+            end
+        end
  end
 
 end                  # End of class Catalog
@@ -182,8 +192,20 @@ if ARGV[0] == "update_element"
      elmnt.update_elem(ARGV[1], ARGV[2], ARGV[3], ARGV[4], ARGV[5], ARGV[6], ARGV[7])
 end
 if ARGV[0] == "sort_by_name"
-     elmnt.print_sorted_elements(0)
+     elmnt.print_sorted_elements(1)
+end
+if ARGV[0] == "sort_by_symbol"
+     elmnt.print_sorted_elements(2)
 end
 if ARGV[0] == "sort_by_atomic_num"
-     elmnt.print_sorted_elements(2)
+     elmnt.print_sorted_elements(3)
+end
+if ARGV[0] == "sort_by_atomic_weight"
+     elmnt.print_sorted_elements(4)
+end
+if ARGV[0] == "sort_by_state"
+     elmnt.print_sorted_elements(5)
+end
+if ARGV[0] == "sort_by_type"
+     elmnt.print_sorted_elements(6)
 end
