@@ -1,7 +1,7 @@
 require 'csv'
 
 class Element
-def initialize(name, symbol, num, weight, state, type)
+ def initialize(name, symbol, num, weight, state, type)
       @name = name
       @symbol = symbol
       @num = num
@@ -9,37 +9,36 @@ def initialize(name, symbol, num, weight, state, type)
       @state = state 
       @type = type
  
-end
+ end
 attr_accessor :name, :symbol, :num, :weight, :state, :type
 
-def to_s
+ def to_s
 
-                    # str += element[row][column].to_s.ljust(20)
-                 str = ''
-                 str += @name.to_s.ljust(20)
-                 str += @symbol.to_s.ljust(20)
-                 str += @num.to_s.ljust(20)
-                 str += @weight.to_s.ljust(20)
-                 str += @state.to_s.ljust(20)
-                 str += @type.to_s.ljust(20)
-       str
+      str = ''
+      str += @name.to_s.ljust(20)
+      str += @symbol.to_s.ljust(20)
+      str += @num.to_s.ljust(20)
+      str += @weight.to_s.ljust(20)
+      str += @state.to_s.ljust(20)
+      str += @type.to_s.ljust(20)
+      str
 
-end
+ end
 
 end    #end of class Element
 
 
 class Catalog
-  def  initialize
-       @elements = load_elements
-  end 
+ def  initialize
+      @elements = load_elements
+ end 
  def load_elements
       elements = Array.new 
-         CSV.open('elements.txt', 'r').each do |row|
+      CSV.open('elements.txt', 'r').each do |row|
            element = Element.new(row[0], row[1], row[2], row[3], row[4], row[5])
            elements << element
-       end 
-       elements
+      end 
+      elements
  end
  def print_titles
      strng = ""
