@@ -169,46 +169,46 @@ end                  # End of class Catalog
 elmnt = Catalog.new(ARGV[1])
 if ARGV[0] == "all"
     elmnt.print_elements
-end
-if ARGV[0] == "search_by_name" 
+
+elsif ARGV[0] == "search_by_name" 
     elmnt.print_element_by_name
-end
-if ARGV[0] == "search_by_symbol"
+
+elsif ARGV[0] == "search_by_symbol"
     elmnt.print_elements_by_type(ARGV[1], 1)
-end
-if ARGV[0] == "search_by_atomic_num"
+
+elsif ARGV[0] == "search_by_atomic_num"
     elmnt.print_element_by_atomic_num(ARGV[1])
-end
-if ARGV[0] == "search_by_atomic_weight"
+
+elsif ARGV[0] == "search_by_atomic_weight"
     elmnt.print_elements_by_AtomicWeight(ARGV[1], ARGV[2])
-end
-if ARGV[0] == "search_by_state" 
+
+elsif ARGV[0] == "search_by_state" 
     elmnt.print_elements_by_type(ARGV[1], 4)
-end
-if ARGV[0] == "search_by_type"
+
+elsif ARGV[0] == "search_by_type"
     elmnt.print_elements_by_type(ARGV[1], 5)
-end
-if ARGV[0] == "add_element"
+
+elsif ARGV[0] == "add_element"
      elmnt.add_elem(ARGV[1], ARGV[2], ARGV[3], ARGV[4], ARGV[5], ARGV[6])
-end
-if ARGV[0] == "update_element"
+
+elsif ARGV[0] == "update_element"
      elmnt.update_elem(ARGV[1], ARGV[2], ARGV[3], ARGV[4], ARGV[5], ARGV[6], ARGV[7])
-end
-if ARGV[0] == "sort_by_name"
+
+elsif ARGV[0] == "sort_by_name"
      elmnt.print_sorted_elements(0)
-end
-if ARGV[0] == "sort_by_symbol"
+
+elsif ARGV[0] == "sort_by_symbol"
      elmnt.print_sorted_elements(1)
-end
-if ARGV[0] == "sort_by_atomic_num"
+
+elsif ARGV[0] == "sort_by_atomic_num"
      elmnt.print_sorted_elements(2)
-end
-if ARGV[0] == "sort_by_atomic_weight"
+
+elsif ARGV[0] == "sort_by_atomic_weight"
      elmnt.print_sorted_elements(3)
-end
-if ARGV[0] == "sort_by_state"
+
+elsif ARGV[0] == "sort_by_state"
      elmnt.print_sorted_elements(4)
-end
-if ARGV[0] == "sort_by_type"
+
+elsif ARGV[0] == "sort_by_type"
      elmnt.print_sorted_elements(5)
 end
